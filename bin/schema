@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const YAML = require('yaml')
+
+const schemaFile = process.argv[2];
+const outputDir = path.dirname(schemaFile)
+const name = path.basename(schemaFile).replace('.json', '');
+const schemaFilename = path.join(outputDir, `${name}.schema.json`)
+const yamlFilename = path.join(outputDir, `${name}.jdbc-sink.yaml`)
+
+const data = fs.readFileSync(schemaFile, { encoding: 'utf-8'})
+const jsonSchema = JSON.parse(data)
+
+// Write schema
+const schema = {
+    "type": "AVRO",
+    "schema": JSON.stringify(jsonSchema),
+    "properties": {}
+}
+fs.writeFileSync(schemaFilename, JSON.stringify(schema, null, 2), { encoding: 'utf-8'})
+
+// Write jdbc-sink
+const sink = {
+  configs: {
+    userName: 'postgres',
+    password: 'test',
+    jdbcUrl: 'jdbc:postgresql://postgres:5432/postgres',
+    tableName: name
+  }
+}
+fs.writeFileSync(yamlFilename, YAML.stringify(sink), { encoding: 'utf-8'})

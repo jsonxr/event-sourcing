@@ -1,0 +1,2 @@
+#!/bin/sh -e
+docker-compose exec -w /root postgres psql --username postgres "$@"

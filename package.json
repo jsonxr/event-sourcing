@@ -1,0 +1,13 @@
+{
+  "name": "pulsar",
+  "version": "1.0.0",
+  "scripts": {
+    "consumer": "node ./app/consumer.js",
+    "producer": "node ./app/producer.js"
+  },
+  "dependencies": {
+    "avro-js": "^1.10.0",
+    "pulsar-client": "^1.2.0",
+    "yaml": "^1.10.0"
+  }
+}

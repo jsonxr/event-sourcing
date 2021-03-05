@@ -1,0 +1,17 @@
+#!/usr/bin/env sh -e
+
+# Postgres configuration
+bin/psql -f scripts/sql/create.sql
+
+# Pulsar configuration
+echo "CREATE schema pulsar-postgres-jdbc-sink-topic"
+bin/pulsar-admin schemas upload pulsar-postgres-jdbc-sink-topic \
+  -f ./config/pulsar/connectors/avro-schema
+
+echo "CREATE sink pulsar-postgres-jdbc-sink"
+bin/pulsar-admin sinks create \
+  --archive ./connectors/pulsar-io-jdbc-postgres-2.6.0.nar \
+  --inputs pulsar-postgres-jdbc-sink-topic \
+  --name pulsar-postgres-jdbc-sink \
+  --sink-config-file ./config/pulsar/connectors/pulsar-postgres-jdbc-sink.yaml \
+  --parallelism 1

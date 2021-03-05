@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -x
+
+if [ "$(command -v rsync)" == "" ]; then
+  apt-get update
+  apt-get install -y rsync
+fi
+rsync -a ./config/pulsar/ ./
+
+exec bin/pulsar standalone

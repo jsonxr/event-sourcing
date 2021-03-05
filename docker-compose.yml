@@ -1,0 +1,74 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    volumes:
+      - postgres:/data/postgres
+#      - ./scripts:/root/scripts
+      - ./config:/root/config
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@ci.org
+      PGADMIN_DEFAULT_PASSWORD: test
+    volumes:
+      - pgadmin:/root/.pgadmin
+      # - ./scripts:/root/scripts
+      - ./config:/root/config
+      - ./config/pgadmin/servers.json:/pgadmin4/servers.json
+    ports:
+      - '5050:80'
+
+  pulsar-standalone:
+    container_name: pulsar-standalone
+    image: apachepulsar/pulsar-all:2.7.0
+    ports:
+      - '6650:6650'
+      - '8080:8080'
+    volumes:
+      # - ./scripts:/pulsar/scripts
+      #- ./config:/root/config
+      - ./config:/pulsar/config
+      - pulsardata:/pulsar/data
+      - pulsarconf:/pulsar/conf
+      #- ./pulsar/connectors:/pulsar/connectors
+    #command: config/start
+    command: bin/pulsar standalone
+
+  # pulsar-manager:
+  #   container_name: pulsar-manager
+  #   image: apachepulsar/pulsar-manager:v0.1.0
+  #   ports:
+  #     - '9527:9527'
+  #     - '5432'
+  #     - '7750:7750'
+  #   environment:
+  #     - REDIRECT_HOST=127.0.0.1
+  #     - REDIRECT_PORT=9527
+  #     - DRIVER_CLASS_NAME=org.postgresql.Driver
+  #     - URL='jdbc:postgresql://postgres:5432/postgres'
+  #     - USERNAME=postgres
+  #     - PASSWORD=test
+  #     - LOG_LEVEL=DEBUG
+  #     - SPRING_CONFIGURATION_FILE=/pulsar-manager/pulsar-manager/application.properties
+  #   volumes:
+  #     - pulsarui:/data
+  #   links:
+  #     - pulsar-standalone
+  #     - postgres
+
+volumes:
+  postgres:
+  pgadmin:
+  pulsardata:
+  pulsarconf:
+  pulsarui:

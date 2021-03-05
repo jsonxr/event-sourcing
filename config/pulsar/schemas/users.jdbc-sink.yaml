@@ -1,0 +1,5 @@
+configs:
+  userName: postgres
+  password: test
+  jdbcUrl: jdbc:postgresql://postgres:5432/postgres
+  tableName: users

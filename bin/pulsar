@@ -1,0 +1,2 @@
+#!/bin/sh -e
+docker-compose exec pulsar-standalone bin/pulsar "$@"
