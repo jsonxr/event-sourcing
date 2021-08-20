@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "name": "Beneficiary",
+  "fields": [
+    {"name": "globalId", "type":"string"},
+    {"name": "localId", "type":"string"},
+    {"name": "firstName", "type":"string"},
+    {"name": "lastName", "type":"string"},
+    {"name": "preferredName", "type":"string"},
+    {"name": "gender", "type":"string"},
+    {"name": "birthdate", "type":"string"}
+  ]
+}

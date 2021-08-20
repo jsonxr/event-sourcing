@@ -1,5 +1,1 @@
-{
-  "type": "JSON",
-  "schema": "{\"type\":\"record\",\"name\":\"User\",\"fields\":[{\"name\":\"id\",\"type\":\"int\"},{\"name\":\"username\",\"type\":\"string\"}]}",
-  "properties": {}
-}
+{"type": "JSON","schema": "{\"type\":\"record\",\"name\":\"User\",\"fields\":[{\"name\":\"id\",\"type\":\"int\"},{\"name\":\"username\",\"type\":\"string\"}]}","properties": {}}

@@ -1,0 +1,35 @@
+{
+  "type" : "record",
+  "name" : "Beneficiary",
+  "namespace" : "church",
+  "fields" : [ {
+    "name" : "globalId",
+    "type" : "string",
+    "doc" : "The salesforce id consisting of fcpid+localid"
+  }, {
+    "name" : "localId",
+    "type" : "string",
+    "doc" : "the local id used starting with 00001 - 99999"
+  }, {
+    "name" : "firstName",
+    "type" : "string",
+    "doc" : "The given name of the beneficiary"
+  }, {
+    "name" : "lastName",
+    "type" : "string",
+    "doc" : "The family name of the beneficiary"
+  }, {
+    "name" : "preferredName",
+    "type" : "string",
+    "doc" : "The name the beneficiary prefers to be addressed as"
+  }, {
+    "name" : "gender",
+    "type" : "string",
+    "doc" : "male, female, or undefined"
+  }, {
+    "name" : "birthdate",
+    "type" : "LOCAL_DATE",
+    "doc" : "The date of the beneficiaries birth"
+  },
+  "doc:" : "A basic schema for storing Beneficary"
+}

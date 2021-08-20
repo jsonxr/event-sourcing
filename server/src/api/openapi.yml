@@ -1,0 +1,117 @@
+openapi: 3.0.1
+info:
+  title: Hello World API
+  description: This is our Hello World API.
+  version: '1.0'
+servers:
+  - url: '/api'
+
+tags:
+  - name: beneficiary
+    description: Everything about a beneficiary
+    externalDocs:
+      description: Find out more
+      url: http://compassion.com
+
+paths:
+  /beneficiaries:
+    get:
+      tags:
+      - beneficiary
+      operationId: listBeneficiaries
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beneficiary'
+        "400":
+          description: Invalid status value
+          content: {}
+      x-swagger-router-controller: Beneficiaries
+
+    post:
+      tags:
+      - beneficiary
+      summary: Creates beneficiary
+      x-swagger-router-controller: Beneficiaries
+      operationId: createBeneficiary
+      requestBody:
+        description: Beneficiary information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beneficiary'
+        required: true
+      responses:
+        default:
+          description: successful operation
+          content: {}
+
+components:
+  schemas:
+    Beneficiary:
+      type: object
+      properties:
+        globalId:
+          type: string
+        localId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        preferredName:
+          type: string
+        gender:
+          type: string
+          enum:
+            - male
+            - female
+            - unknown
+      example:
+        localId: '00001'
+        globalId: 'MX0000100001'
+        firstName: John
+        lastName: Smith
+        preferredName: John
+        gender: 'male'
+
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      example:
+        name: name
+        id: 1
+      xml:
+        name: Tag
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      example:
+        code: 0
+        type: type
+        message: message
+    body:
+      properties:
+        name:
+          type: string
+          description: Updated name of the pet
+        status:
+          type: string
+          description: Updated status of the pet
